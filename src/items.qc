@@ -1067,6 +1067,21 @@ POWERUPS
 void() powerup_touch;
 
 
+void(entity ignore) applyQuadToAll=
+{
+	
+	local entity playr = find (world, classname, "player");
+	while (playr != world)
+	{
+		if(playr != ignore)
+		{
+			playr.super_time = 1;
+			playr.super_damage_finished = time + 30;
+		}
+		playr = find (playr, classname, "player");
+	}
+}
+
 void() powerup_touch =
 {
 
@@ -1119,8 +1134,7 @@ void() powerup_touch =
 
 	if (self.classname == "item_artifact_super_damage")
 	{
-		other.super_time = 1;
-		other.super_damage_finished = time + 30;
+		applyQuadToAll(other);
 	}
 
 	activator = other;

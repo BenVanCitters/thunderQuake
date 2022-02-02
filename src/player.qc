@@ -113,10 +113,26 @@ void()	player_stand1 =[	$axstnd1,	player_stand1	]
 	self.walkframe = self.walkframe + 1;
 };
 
+float() isThunderOver
+{
+	return (self.super_damage_finished < time);
+}
+
 void()	player_run =[	$rockrun1,	player_run	]
 {
+	
 	self.weaponframe=0;
-	if (!self.velocity_x && !self.velocity_y)
+	if(!isThunderOver())
+	{
+		self.frame = $deathb5;
+				
+		if (self.walkframe > 1)
+			self.walkframe = 0;			
+		self.walkframe = self.walkframe + 1;
+		return;
+	}
+	
+	if (!self.velocity_x && !self.velocity_y) 
 	{
 		self.walkframe=0;
 		player_stand1();
