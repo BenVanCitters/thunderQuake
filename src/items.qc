@@ -1064,6 +1064,27 @@ POWERUPS
 
 void() powerup_touch;
 
+void() player_pain;
+void() PlayerDie;
+//shrink the player
+void() shrinkMe=
+{	
+	setsize (self, '-8 -8 -8', '8 8 8');
+	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	self.view_ofs = '0 0 8';
+	self.th_pain = player_pain;
+	self.th_die = PlayerDie;
+
+}
+
+//restore normal stuff
+void() growMe=
+{
+	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	self.view_ofs = '0 0 22';
+	self.th_pain = player_pain;
+	self.th_die = PlayerDie;
+}
 
 void(entity ignore) applyQuadToAll=
 {
@@ -1075,6 +1096,7 @@ void(entity ignore) applyQuadToAll=
 		{
 			playr.super_time = 1;
 			playr.super_damage_finished = time + 30;
+			shrinkMe();
 		}
 		playr = find (playr, classname, "player");
 	}
@@ -1108,7 +1130,10 @@ void() powerup_touch =
 	sound (other, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
 	self.solid = SOLID_NOT;
-	other.items = other.items | self.items;
+	if (self.classname != "item_artifact_super_damage")
+	{
+		other.items = other.items | self.items;
+	}
 	self.model = string_null;
 
 // do the apropriate action
