@@ -505,7 +505,7 @@ void() PutClientInServer =
 	self.flags = FL_CLIENT;
 	self.air_finished = time + 12;
 	self.dmg = 2;   		// initial water damage
-	self.super_damage_finished = 0;
+	//self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
 	self.invisible_finished = 0;
 	self.invincible_finished = 0;
@@ -960,6 +960,8 @@ void() PlayerPreThink =
 		W_SetCurrentAmmo ();
 	}
 };
+
+
 
 /*
 ================
