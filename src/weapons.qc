@@ -819,8 +819,15 @@ void() W_SetCurrentAmmo =
 	}
 };
 
+float() isThunderOver;
+
 float() W_BestWeapon =
 {
+	if( !isThunderOver())
+	{ 
+		return IT_AXE;
+	}
+	
 	local	float	it;
 
 	it = self.items;
@@ -861,6 +868,8 @@ W_Attack
 An attack impulse can be triggered now
 ============
 */
+void() W_ChangeWeapon;
+
 void()	player_axe1;
 void()	player_axeb1;
 void()	player_axec1;
@@ -873,9 +882,15 @@ void()	player_rocket1;
 void() W_Attack =
 {
 	local	float	r;
+	if( !isThunderOver())
+	{ 
+		self.weapon = IT_AXE;
+		W_SetCurrentAmmo ();
+	}
 
 	if (!W_CheckNoAmmo ())
 		return;
+
 
 	makevectors	(self.v_angle);			// calculate forward angle for velocity
 	self.show_hostile = time + 1;	// wake monsters up
@@ -1008,6 +1023,13 @@ void() W_ChangeWeapon =
 		return;
 	}
 
+	if( !isThunderOver())
+	{ 
+		bprint("forcing axe change\n");
+		sprint (self, "you're tiny! you can only axe!\n");		
+		fl = IT_AXE;
+	}
+	
 //
 // set weapon, set ammo
 //
@@ -1059,6 +1081,14 @@ void() CycleWeaponCommand =
 
 	it = self.items;
 	self.impulse = 0;
+
+	if( !isThunderOver())
+	{ 
+		self.weapon = IT_AXE;
+		W_SetCurrentAmmo ();
+		return;
+	}
+	
 
 	while (1)
 	{
