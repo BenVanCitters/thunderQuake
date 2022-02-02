@@ -88,9 +88,26 @@ PLAYER
 
 void() player_run;
 
+// returns true or false for whether the thunder effect has ended
+float() isThunderOver
+{
+	return (self.super_damage_finished < time);
+}
+
+
 void()	player_stand1 =[	$axstnd1,	player_stand1	]
 {
 	self.weaponframe=0;
+	if(!isThunderOver())
+	{
+		self.frame = $deathb5;
+				
+		if (self.walkframe > 1)
+			self.walkframe = 0;			
+		self.walkframe = self.walkframe + 1;
+		return;
+	}
+	
 	if (self.velocity_x || self.velocity_y)
 	{
 		self.walkframe=0;
@@ -112,11 +129,6 @@ void()	player_stand1 =[	$axstnd1,	player_stand1	]
 	}
 	self.walkframe = self.walkframe + 1;
 };
-
-float() isThunderOver
-{
-	return (self.super_damage_finished < time);
-}
 
 void()	player_run =[	$rockrun1,	player_run	]
 {
@@ -544,7 +556,7 @@ void() PlayerDie =
 	self.items = self.items - (self.items & IT_INVISIBILITY);
 	self.invisible_finished = 0;	// don't die as eyes
 	self.invincible_finished = 0;
-	self.super_damage_finished = 0;
+	//self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
 	self.effects = 0;
 	self.modelindex = modelindex_player;	// don't use eyes
