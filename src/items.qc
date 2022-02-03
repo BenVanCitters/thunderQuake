@@ -381,6 +381,7 @@ void(float old, float new) Deathmatch_Weapon =
 weapon_touch
 =============
 */
+float(entity ent) isShrunken;
 float() W_BestWeapon;
 
 void() weapon_touch =
@@ -475,6 +476,11 @@ void() weapon_touch =
 	else
 		Deathmatch_Weapon (old, new);
 
+	if( isShrunken(self) )
+	{ 
+		self.weapon = IT_AXE;
+	}
+	
 	W_SetCurrentAmmo();
 
 	self = stemp;
@@ -1094,6 +1100,7 @@ void(entity me, entity them) shrinkMe=
 	//me.th_pain = player_pain;
 	//me.th_die = PlayerDie;
 	me.touch = shrunk_touch;
+	me.weapon = IT_AXE;
 	
 	if(them != world)
 	{
@@ -1140,8 +1147,6 @@ void() powerup_touch =
 		return;
 	if (other.health <= 0)
 		return;
-
-
 
 	if (deathmatch)
 	{
