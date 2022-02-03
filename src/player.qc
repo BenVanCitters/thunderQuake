@@ -96,9 +96,9 @@ void()	player_stand1 =[	$axstnd1,	player_stand1	]
 	self.weaponframe=0;
 	if( isShrunken(self) )
 	{
-		self.frame = $deathb5;
+		self.frame = $deathb5 + self.walkframe;
 				
-		if (self.walkframe > 1)
+		if (self.walkframe > 2)
 			self.walkframe = 0;			
 		self.walkframe = self.walkframe + 1;
 		return;
@@ -132,9 +132,9 @@ void()	player_run =[	$rockrun1,	player_run	]
 	self.weaponframe=0;
 	if( isShrunken(self) )
 	{
-		self.frame = $deathb5;
+		self.frame = $deathb5 + self.walkframe;
 				
-		if (self.walkframe > 1)
+		if (self.walkframe > 2)
 			self.walkframe = 0;			
 		self.walkframe = self.walkframe + 1;
 		return;
