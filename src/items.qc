@@ -1091,10 +1091,9 @@ void(entity me, entity them) shrinkMe=
 	//setsize (me, '-8 -8 -8', '8 8 8');
 	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	me.view_ofs = '0 0 8';
-	me.th_pain = player_pain;
-	me.th_die = PlayerDie;
+	//me.th_pain = player_pain;
+	//me.th_die = PlayerDie;
 	me.touch = shrunk_touch;
-
 	
 	if(them != world)
 	{
@@ -1112,8 +1111,8 @@ void(entity me) growMe=
 {
 	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	self.view_ofs = '0 0 22';
-	self.th_pain = player_pain;
-	self.th_die = PlayerDie;
+	//self.th_pain = player_pain;
+	//self.th_die = PlayerDie;
 	
 	me.touch = SUB_Null;
 }
