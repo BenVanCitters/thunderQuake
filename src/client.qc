@@ -1092,7 +1092,7 @@ void() CheckPowerups =
 			self.super_time = 0;
 			growMe(self);
 		}
-		else if (self.super_damage_finished - time > 25)
+		else if (self.super_damage_finished - time > 28)
 		{
 			PainSound();
 			makevectors (self.angles);
