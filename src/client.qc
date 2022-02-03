@@ -506,6 +506,8 @@ void() PutClientInServer =
 	self.air_finished = time + 12;
 	self.dmg = 2;   		// initial water damage
 	//self.super_damage_finished = 0;
+	if(self.super_damage_finished > time)
+		shrinkMe(self);
 	self.radsuit_finished = 0;
 	self.invisible_finished = 0;
 	self.invincible_finished = 0;
@@ -959,6 +961,12 @@ void() PlayerPreThink =
 		self.weapon = W_BestWeapon ();
 		W_SetCurrentAmmo ();
 	}
+	
+	if( !isThunderOver())
+	{
+		self.velocity_x = self.velocity_x * .8;
+		self.velocity_y = self.velocity_y * .8;
+	}
 };
 
 
@@ -1078,6 +1086,7 @@ void() CheckPowerups =
 			self.items = self.items - IT_QUAD;
 			self.super_damage_finished = 0;
 			self.super_time = 0;
+			growMe(self);
 		}
 		if (self.super_damage_finished > time)
 			self.effects = self.effects | EF_QUADDAMAGE;

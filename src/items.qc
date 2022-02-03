@@ -1062,28 +1062,40 @@ POWERUPS
 ===============================================================================
 */
 
+void() shrunk_touch=
+{
+	if (other.classname != "player")
+		return;
+	if (other.super_damage_finished > time)
+		return;
+		//(entity targ, entity inflictor, entity attacker, float damage)
+	T_Damage (self, other, other, self.health*2);
+}
 void() powerup_touch;
 
 void() player_pain;
 void() PlayerDie;
 //shrink the player
-void() shrinkMe=
+void(entity me) shrinkMe=
 {	
-	setsize (self, '-8 -8 -8', '8 8 8');
+	setsize (me, '-8 -8 -8', '8 8 8');
 	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
-	self.view_ofs = '0 0 8';
-	self.th_pain = player_pain;
-	self.th_die = PlayerDie;
+	me.view_ofs = '0 0 8';
+	me.th_pain = player_pain;
+	me.th_die = PlayerDie;
+	me.touch = shrunk_touch;
 
 }
 
 //restore normal stuff
-void() growMe=
+void(entity me) growMe=
 {
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	self.view_ofs = '0 0 22';
 	self.th_pain = player_pain;
 	self.th_die = PlayerDie;
+	
+	me.touch = SUB_Null;
 }
 
 void(entity ignore) applyQuadToAll=
@@ -1094,9 +1106,9 @@ void(entity ignore) applyQuadToAll=
 	{
 		if(playr != ignore)
 		{
+			shrinkMe(playr);
 			playr.super_time = 1;
 			playr.super_damage_finished = time + 30;
-			shrinkMe();
 		}
 		playr = find (playr, classname, "player");
 	}
