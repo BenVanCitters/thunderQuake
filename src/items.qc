@@ -1088,7 +1088,7 @@ void() PlayerDie;
 //shrink the player
 void(entity me, entity them) shrinkMe=
 {	
-	setsize (me, '-8 -8 -8', '8 8 8');
+	//setsize (me, '-8 -8 -8', '8 8 8');
 	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	me.view_ofs = '0 0 8';
 	me.th_pain = player_pain;
@@ -1110,7 +1110,7 @@ void(entity me, entity them) shrinkMe=
 //restore normal stuff
 void(entity me) growMe=
 {
-	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	self.view_ofs = '0 0 22';
 	self.th_pain = player_pain;
 	self.th_die = PlayerDie;
