@@ -786,7 +786,12 @@ void() PlayerJump =
 	self.button2 = 0;
 // player jumping sound
 	sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);
-	self.velocity_z = self.velocity_z + 270;
+	local float jumpAmount = 270;
+	if( isShrunken(self) )
+	{
+		jumpAmount = 100;
+	}
+	self.velocity_z = self.velocity_z + jumpAmount;
 };
 
 
