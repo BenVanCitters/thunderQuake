@@ -974,7 +974,7 @@ void() PlayerPreThink =
 	}
 };
 
-
+void() PainSound;
 
 /*
 ================
@@ -1094,7 +1094,25 @@ void() CheckPowerups =
 			self.super_time = 0;
 			growMe(self);
 		}
-		if (self.super_damage_finished > time)
+		else if (self.super_damage_finished - time > 25)
+		{
+			PainSound();
+			makevectors (self.angles);
+			local vector org = self.origin;
+
+			traceline (org, org + '0 0 1' *600, TRUE, self);
+
+			WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+			WriteByte (MSG_BROADCAST, TE_LIGHTNING2);
+			WriteEntity (MSG_BROADCAST, self);
+			WriteCoord (MSG_BROADCAST, org_x);
+			WriteCoord (MSG_BROADCAST, org_y);
+			WriteCoord (MSG_BROADCAST, org_z);
+			WriteCoord (MSG_BROADCAST, trace_endpos_x);
+			WriteCoord (MSG_BROADCAST, trace_endpos_y);
+			WriteCoord (MSG_BROADCAST, trace_endpos_z);
+		}
+		if( isShrunken(self) )
 			self.effects = self.effects | EF_QUADDAMAGE;
 		else
 			self.effects = self.effects - (self.effects & EF_QUADDAMAGE);
