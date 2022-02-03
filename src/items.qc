@@ -1142,9 +1142,7 @@ void() powerup_touch =
 	if (other.health <= 0)
 		return;
 
-	sprint (other, "You got the ");
-	sprint (other, self.netname);
-	sprint (other,"\n");
+
 
 	if (deathmatch)
 	{
@@ -1164,7 +1162,14 @@ void() powerup_touch =
 	self.solid = SOLID_NOT;
 	if (self.classname != "item_artifact_super_damage")
 	{
+		sprint (other, "You got the ");
+		sprint (other, self.netname);
+		sprint (other,"\n");
 		other.items = other.items | self.items;
+	}
+	else
+	{
+		sprint (other, "You shrank everyone else with the thundercloud!\n");
 	}
 	self.model = string_null;
 

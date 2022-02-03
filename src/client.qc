@@ -1073,7 +1073,7 @@ void() CheckPowerups =
 		{
 			if (self.super_time == 1)
 			{
-				sprint (self, "Quad Damage is wearing off\n");
+				sprint (self, "Shrinkage is wearing off\n");
 				stuffcmd (self, "bf\n");
 				sound (self, CHAN_AUTO, "items/damage2.wav", 1, ATTN_NORM);
 				self.super_time = time + 1;
@@ -1310,6 +1310,13 @@ void(entity targ, entity attacker) ClientObituary =
 			{
 				attacker.frags = attacker.frags + 1;
 
+				if(isShrunken(targ) && !isShrunken(attacker) )
+				{
+					bprint (targ.netname);
+					bprint (" got crushed by ");
+					bprint (attacker.netname);
+					return;
+				}
 				rnum = attacker.weapon;
 				if (rnum == IT_AXE)
 				{
