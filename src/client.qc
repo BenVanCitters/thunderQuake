@@ -1322,6 +1322,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (targ.netname);
 					bprint (" got crushed by ");
 					bprint (attacker.netname);
+					bprint ("\n");
 					return;
 				}
 				rnum = attacker.weapon;
