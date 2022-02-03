@@ -1089,7 +1089,7 @@ void() CheckPowerups =
 		
 		if ( isThunderOver(self) )
 		{	// just stopped
-			self.items = self.items - IT_QUAD;
+			//self.items = self.items - IT_QUAD;
 			self.super_damage_finished = 0;
 			self.super_time = 0;
 			growMe(self);

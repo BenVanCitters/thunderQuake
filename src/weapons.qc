@@ -1240,7 +1240,7 @@ void() QuadCheat =
 		return;
 	self.super_time = 1;
 	self.super_damage_finished = time + 30;
-	self.items = self.items | IT_QUAD;
+	//self.items = self.items | IT_QUAD;
 	dprint ("quad cheat\n");
 };
 
