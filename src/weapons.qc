@@ -819,11 +819,9 @@ void() W_SetCurrentAmmo =
 	}
 };
 
-float() isThunderOver;
-
 float() W_BestWeapon =
 {
-	if( !isThunderOver())
+	if( isShrunken(self) )
 	{ 
 		return IT_AXE;
 	}
@@ -882,7 +880,7 @@ void()	player_rocket1;
 void() W_Attack =
 {
 	local	float	r;
-	if( !isThunderOver())
+	if( isShrunken(self) )
 	{ 
 		self.weapon = IT_AXE;
 		W_SetCurrentAmmo ();
@@ -1023,7 +1021,7 @@ void() W_ChangeWeapon =
 		return;
 	}
 
-	if( !isThunderOver())
+	if( isShrunken(self) )
 	{ 
 		bprint("forcing axe change\n");
 		sprint (self, "you're tiny! you can only axe!\n");		
@@ -1082,7 +1080,7 @@ void() CycleWeaponCommand =
 	it = self.items;
 	self.impulse = 0;
 
-	if( !isThunderOver())
+	if( isShrunken(self) )
 	{ 
 		self.weapon = IT_AXE;
 		W_SetCurrentAmmo ();

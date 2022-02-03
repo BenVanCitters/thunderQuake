@@ -1086,7 +1086,7 @@ void() powerup_touch;
 void() player_pain;
 void() PlayerDie;
 //shrink the player
-void(entity me) shrinkMe=
+void(entity me, entity them) shrinkMe=
 {	
 	setsize (me, '-8 -8 -8', '8 8 8');
 	//setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
@@ -1095,6 +1095,16 @@ void(entity me) shrinkMe=
 	me.th_die = PlayerDie;
 	me.touch = shrunk_touch;
 
+	
+	if(them != world)
+	{
+		sprint(me, them.netname);
+		sprint(me, " shrank you!!! Don't let them smash you!\n");
+	}
+	else
+	{
+		sprint(me, "You are shrunken!!! Don't let anyone smash you!\n");
+	}
 }
 
 //restore normal stuff
@@ -1116,7 +1126,7 @@ void(entity ignore) applyQuadToAll=
 	{
 		if(playr != ignore)
 		{
-			shrinkMe(playr);
+			shrinkMe(playr, ignore);
 			playr.super_time = 1;
 			playr.super_damage_finished = time + 30;
 		}
