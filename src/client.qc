@@ -967,7 +967,7 @@ void() PlayerPreThink =
 		W_SetCurrentAmmo ();
 	}
 	
-	if( !isThunderOver())
+	if( isShrunken(self) )
 	{
 		self.velocity_x = self.velocity_x * .8;
 		self.velocity_y = self.velocity_y * .8;
@@ -1086,7 +1086,8 @@ void() CheckPowerups =
 			}
 		}
 
-		if (self.super_damage_finished < time)
+		
+		if ( isThunderOver(self) )
 		{	// just stopped
 			self.items = self.items - IT_QUAD;
 			self.super_damage_finished = 0;

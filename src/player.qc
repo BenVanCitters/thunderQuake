@@ -88,17 +88,13 @@ PLAYER
 
 void() player_run;
 
-// returns true or false for whether the thunder effect has ended
-float() isThunderOver
-{
-	return (self.super_damage_finished < time);
-}
+
 
 
 void()	player_stand1 =[	$axstnd1,	player_stand1	]
 {
 	self.weaponframe=0;
-	if(!isThunderOver())
+	if( isShrunken(self) )
 	{
 		self.frame = $deathb5;
 				
@@ -134,7 +130,7 @@ void()	player_run =[	$rockrun1,	player_run	]
 {
 	
 	self.weaponframe=0;
-	if(!isThunderOver())
+	if( isShrunken(self) )
 	{
 		self.frame = $deathb5;
 				

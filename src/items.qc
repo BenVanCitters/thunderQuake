@@ -1061,14 +1061,24 @@ POWERUPS
 
 ===============================================================================
 */
+// returns true or false for whether the thunder effect has ended
+float(entity ent) isThunderOver=
+{
+	return (ent.super_damage_finished < time);
+}
+
+float(entity ent) isShrunken =
+{
+	return !isThunderOver(ent);
+}
 
 void() shrunk_touch=
 {
 	if (other.classname != "player")
 		return;
-	if (other.super_damage_finished > time)
+	if ( isShrunken(other) )
 		return;
-		//(entity targ, entity inflictor, entity attacker, float damage)
+	//you really get annilhilated if you get stepped on...
 	T_Damage (self, other, other, self.health*2);
 }
 void() powerup_touch;
