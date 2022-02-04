@@ -476,10 +476,10 @@ void() weapon_touch =
 	else
 		Deathmatch_Weapon (old, new);
 
-	if( isShrunken(self) )
-	{ 
-		self.weapon = IT_AXE;
-	}
+	//if( isShrunken(self) )
+	//{ 
+	//	self.weapon = IT_AXE;
+	//}
 	
 	W_SetCurrentAmmo();
 
