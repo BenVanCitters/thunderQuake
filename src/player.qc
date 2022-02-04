@@ -126,6 +126,19 @@ void()	player_stand1 =[	$axstnd1,	player_stand1	]
 	self.walkframe = self.walkframe + 1;
 };
 
+void() player_shrunkFire = 
+{
+	if( isShrunken(self) )
+	{
+		self.frame = $deathc12 + self.walkframe;
+				
+		if (self.walkframe > 2)
+			self.walkframe = 0;			
+		self.walkframe = self.walkframe + 1;
+		self.think = player_shrunkFire;
+	}
+}
+
 void()	player_run =[	$rockrun1,	player_run	]
 {
 	
@@ -552,7 +565,7 @@ void() PlayerDie =
 	self.items = self.items - (self.items & IT_INVISIBILITY);
 	self.invisible_finished = 0;	// don't die as eyes
 	self.invincible_finished = 0;
-	//self.super_damage_finished = 0;
+	self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
 	self.effects = 0;
 	self.modelindex = modelindex_player;	// don't use eyes
