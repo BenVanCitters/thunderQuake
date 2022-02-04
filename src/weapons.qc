@@ -821,10 +821,10 @@ void() W_SetCurrentAmmo =
 
 float() W_BestWeapon =
 {
-	if( isShrunken(self) )
-	{ 
-		return IT_AXE;
-	}
+	//if( isShrunken(self) )
+	//{ 
+	//	return IT_AXE;
+	//}
 	
 	local	float	it;
 
@@ -876,15 +876,15 @@ void()	player_shot1;
 void()	player_nail1;
 void()	player_light1;
 void()	player_rocket1;
-
+void() player_shrunkFire;
 void() W_Attack =
 {
 	local	float	r;
-	if( isShrunken(self) )
-	{ 
-		self.weapon = IT_AXE;
-		W_SetCurrentAmmo ();
-	}
+	//if( isShrunken(self) )
+	//{ 
+	//	self.weapon = IT_AXE;
+	//	W_SetCurrentAmmo ();
+	//}
 
 	if (!W_CheckNoAmmo ())
 		return;
@@ -944,6 +944,12 @@ void() W_Attack =
 		player_light1();
 		self.attack_finished = time + 0.1;
 		sound (self, CHAN_AUTO, "weapons/lstart.wav", 1, ATTN_NORM);
+	}
+	if( isShrunken(self) )
+	{ 
+		player_shrunkFire();
+	//	self.weapon = IT_AXE;
+	//	W_SetCurrentAmmo ();
 	}
 };
 
@@ -1021,12 +1027,12 @@ void() W_ChangeWeapon =
 		return;
 	}
 
-	if( isShrunken(self) )
-	{ 
-		bprint("forcing axe change\n");
-		sprint (self, "you're tiny! you can only axe!\n");		
-		fl = IT_AXE;
-	}
+	//if( isShrunken(self) )
+	//{ 
+	//	bprint("forcing axe change\n");
+	//	sprint (self, "you're tiny! you can only axe!\n");		
+	//	fl = IT_AXE;
+	//}
 	
 //
 // set weapon, set ammo
@@ -1080,12 +1086,12 @@ void() CycleWeaponCommand =
 	it = self.items;
 	self.impulse = 0;
 
-	if( isShrunken(self) )
-	{ 
-		self.weapon = IT_AXE;
-		W_SetCurrentAmmo ();
-		return;
-	}
+	//if( isShrunken(self) )
+	//{ 
+	//	self.weapon = IT_AXE;
+	//	W_SetCurrentAmmo ();
+	//	return;
+	//}
 	
 
 	while (1)
@@ -1292,6 +1298,7 @@ void() W_WeaponFrame =
 	}
 };
 
+
 /*
 ========
 SuperDamageSound
@@ -1306,7 +1313,7 @@ void() SuperDamageSound =
 		if (self.super_sound < time)
 		{
 			self.super_sound = time + 1;
-			sound (self, CHAN_BODY, "items/damage3.wav", 1, ATTN_NORM);
+			//sound (self, CHAN_BODY, "items/damage3.wav", 1, ATTN_NORM);
 		}
 	}
 	return;
