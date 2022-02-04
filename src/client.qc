@@ -1097,9 +1097,10 @@ void() CheckPowerups =
 			PainSound();
 			makevectors (self.angles);
 			local vector org = self.origin;
-
+			
 			traceline (org, org + '0 0 1' *600, TRUE, self);
-
+			
+			particle (org, '0 0 100', 225, 150);
 			WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 			WriteByte (MSG_BROADCAST, TE_LIGHTNING2);
 			WriteEntity (MSG_BROADCAST, self);
